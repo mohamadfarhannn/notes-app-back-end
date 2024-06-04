@@ -1,0 +1,2 @@
+# Mengabaikan berkas node_modules agar tidak perlu dipantau oleh git
+node_modules
