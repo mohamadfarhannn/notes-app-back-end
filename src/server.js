@@ -3,7 +3,12 @@
 
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes'); //12) 
-const { addNoteHandler, getAllNotesHandler } = require('./handler');
+const { addNoteHandler, 
+  getAllNotesHandler,
+  getNoteByIdHandler,
+  editNoteByIdHandler,
+  deleteNoteByIdHandler,
+} = require('./handler');
  
 const init = async () => {
   const server = Hapi.server({

@@ -1,5 +1,6 @@
 // Memuat seluruh fungsi-fungsi handler yang digunakan pada berkas routes.
 const { nanoid } = require('nanoid'); //5)import nanoid dari package-nya.
+const notes = require('./notes');
 
 const addNoteHandler = (request, h) => { //1)dua parameter request dan h (khusus utk Hapi)
     const { title, tags, body } = request.payload; //3)mendapatkan body request di Hapi
@@ -43,6 +44,27 @@ const getAllNotesHandler = () => ({
   },
 });
 
+const getNoteByIdHandler = (request, h) => { //handler untuk mendapatkan catatan secara spesifik
+  const { id } = request.params; //mendapatkan nilai id
+
+  const note = notes.filter((n) => n.id === id)[0]; //dapatkan objek note dengan id tersebut dari objek array notes. Manfaatkan method array filter() untuk mendapatkan objeknya.
+
+  if (note !== undefined) {
+    return {
+      status: 'success',
+      data: {
+        note,
+      },
+    };
+  }
+  const response = h.response({
+    status: 'fail',
+    message: 'Catatan tidak ditemukan',
+  });
+  response.code(404);
+  return response;
+};
+
 //13)Mengedit Catatan
 const editNoteByIdHandler = (request, h) => {
   const { id } = request.params;
@@ -75,6 +97,8 @@ const editNoteByIdHandler = (request, h) => {
   response.code(404);
   return response;
 
+};
+
   //14) Menghapus Catatan
   const deleteNoteByIdHandler = (request, h) => {
     const { id } = request.params; //dapatkan dulu nilai id yang dikirim melalui path parameter.
@@ -101,7 +125,6 @@ const editNoteByIdHandler = (request, h) => {
     return response;
   };
 
-};
 
 module.exports = { 
   addNoteHandler, 

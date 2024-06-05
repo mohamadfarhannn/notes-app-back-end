@@ -13,14 +13,19 @@ const routes = [
       path: '/notes',
       handler: addNoteHandler, //10) ganti fungsi handler
     },
-    { //12) menampilkan Catatan
+    { //12a) menampilkan Catatan
       method: 'GET',
       path: '/notes',
       handler: getAllNotesHandler,
     },
+    { //12b) membuat route untuk mendapatkan catatan secara spesifik.
+      method: 'GET',
+      path: '/notes/{id}',
+      handler: getNoteByIdHandler,
+    },
     { //13)Mengedit Catatan
       method: 'PUT',
-      path: '/notes',
+      path: '/notes/{id}',
       handler: editNoteByIdHandler,
     },
     { //14) Menghapus Catatan
